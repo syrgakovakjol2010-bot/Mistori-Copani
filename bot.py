@@ -5,7 +5,7 @@ import threading
 import os
 
 # --- ТВОИ ДАННЫЕ (ОБНОВЛЕННЫЕ) ---
-TOKEN = "7345968875:AAHbwebgGGpv7l2d8vVFgXebVfaYe4RnwIo"
+TOKEN = "7345968875:AAEaNkp2kfDBi_acuGXu3DrraWXoAFkwhC4"
 ADMIN_ID = 5385396977
 PRICE_IMAGE = "IMG-20260130-WA0025.jpg"  # Файл с таким именем должен быть на GitHub!
 
