@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>IT Studio Order</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <style>
+        /* --- СТИЛИ (ДИЗАЙН) --- */
+        body {
+            background-color: #050a14; /* Темно-синий фон */
+            color: #ffffff;
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Заголовок с неоновым свечением */
+        h2 {
+            color: #00a8ff;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(0, 168, 255, 0.6);
+            margin-bottom: 20px;
+            font-size: 22px;
+            text-align: center;
+        }
+
+        /* Карточка формы */
+        .card {
+            background: linear-gradient(145deg, #0d192d, #081020);
+            border: 1px solid #1f4068;
+            box-shadow: 0 0 20px rgba(0, 168, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            color: #8bacd1; /* Светло-голубой текст */
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Поля ввода */
+        select, input, textarea {
+            width: 100%;
+            background: #03060a;
+            border: 1px solid #1f4068;
+            color: #fff;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        /* Подсветка поля при нажатии */
+        select:focus, input:focus, textarea:focus {
+            border-color: #00a8ff;
+            box-shadow: 0 0 10px rgba(0, 168, 255, 0.2);
+        }
+
+        /* Главная кнопка */
+        .main-btn {
+            margin-top: 25px;
+            width: 100%;
+            background: linear-gradient(90deg, #0055ff, #00a8ff);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 85, 255, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .main-btn:active {
+            transform: scale(0.96); /* Эффект нажатия */
+            box-shadow: 0 2px 10px rgba(0, 85, 255, 0.3);
+        }
+
+        /* Мелкий текст снизу */
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #4a5b75;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>⚡ Оформление заказа</h2>
+
+    <div class="card">
+        <label for="service">Что заказываем?</label>
+        <select id="service">
+            <optgroup label="🖥 Сайты">
+                <option value="Info-страница (1500 сом)">Info-страница — 1 500 с</option>
+                <option value="Сайт-визитка (3000 сом)">Сайт-визитка — 3 000 с</option>
+                <option value="Интернет-магазин (от 12000 сом)">Интернет-магазин — 12 000+ с</option>
+            </optgroup>
+            <optgroup label="🤖 Боты">
+                <option value="Web App Бот (8000 сом)">Web App (Магазин) — 8 000 с</option>
+                <option value="Бот с доставкой (18000 сом)">Бот с доставкой — 18 000 с</option>
+            </optgroup>
+            <optgroup label="📦 Комбо">
+                <option value="Комбо Start (5000 сом)">Start (Визитка + Бот) — 5 000 с</option>
+                <option value="Комбо Business (25000 сом)">Business (Сайт + Web App) — 25 000 с</option>
+            </optgroup>
+        </select>
+
+        <label for="contact">Ваш ник или телефон:</label>
+        <input type="text" id="contact" placeholder="@username или номер">
+
+        <label for="details">Описание задачи:</label>
+        <textarea id="details" rows="4" placeholder="Напишите кратко, что нужно сделать..."></textarea>
+    </div>
+
+    <button class="main-btn" onclick="sendOrder()">ОТПРАВИТЬ ЗАКАЗ 🚀</button>
+
+    <div class="footer">
+        IT Services & Development<br>Powered by Telegram WebApp
+    </div>
+
+    <script>
+        // --- ЛОГИКА (JAVASCRIPT) ---
+        
+        // Сообщаем Телеграму, что приложение открылось
+        let tg = window.Telegram.WebApp;
+        tg.expand(); // Раскрываем на весь экран
+
+        // Автоматически берем цвета из темы пользователя (если захочешь потом)
+        // tg.MainButton.textColor = tg.themeParams.button_text_color;
+        // tg.MainButton.color = tg.themeParams.button_color;
+
+        function sendOrder() {
+            // 1. Собираем данные из полей
+            let service = document.getElementById("service").value;
+            let contact = document.getElementById("contact").value;
+            let details = document.getElementById("details").value;
+
+            // 2. Проверка: если контакт пустой, ругаемся
+            if (contact.trim() === "") {
+                tg.showPopup({
+                    title: "Ошибка",
+                    message: "Пожалуйста, укажите ваш контакт (ник или номер), чтобы мы могли ответить!"
+                });
+                return;
+            }
+
+            // 3. Если описание пустое, ставим прочерк
+            if (details.trim() === "") {
+                details = "Без комментариев";
+            }
+
+            // 4. Формируем красивый текст для админа
+            // Это то, что придет тебе в бота
+            let data_to_send = `📦 *Услуга:* ${service}\n👤 *Контакт:* ${contact}\n📝 *ТЗ:* ${details}`;
+            
+            // 5. Отправляем данные обратно в бота (в Python)
+            tg.sendData(data_to_send); 
+        }
+    </script>
+</body>
+</html>
