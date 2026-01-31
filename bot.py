@@ -7,9 +7,9 @@ import os
 # --- ТВОИ ДАННЫЕ (ОБНОВЛЕННЫЕ) ---
 TOKEN = "7345968875:AAHbwebgGGpv7l2d8vVFgXebVfaYe4RnwIo"
 ADMIN_ID = 5385396977
-PRICE_IMAGE = "IMG-20260130-WA0025.jpg"  # <-- Убедись, что файл с таким именем загружен на GitHub!
+PRICE_IMAGE = "IMG-20260130-WA0025.jpg"  # Файл с таким именем должен быть на GitHub!
 
-# Ссылка на твой Web App (сайт на GitHub Pages)
+# Ссылка на твой сайт (GitHub Pages)
 WEB_APP_URL = "https://syrgakovakjol2010-bot.github.io/Mistori-Copani/"
 
 bot = telebot.TeleBot(TOKEN)
@@ -30,7 +30,7 @@ def start(message):
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     
-    # Кнопка с Web App
+    # Кнопка с Web App (открывает сайт)
     webAppInfo = types.WebAppInfo(WEB_APP_URL) 
     
     btn_order = types.KeyboardButton(text="📱 Сделать заказ", web_app=webAppInfo)
@@ -119,7 +119,7 @@ def chat_logic(message):
             with open(PRICE_IMAGE, 'rb') as photo:
                 bot.send_photo(user_id, photo, caption="💰 Актуальный прайс-лист")
         except:
-            bot.send_message(user_id, "Ошибка: Файл прайса не найден (скажите админу загрузить картинку).")
+            bot.send_message(user_id, "Ошибка: Файл картинки не найден на сервере.")
 
     # Визитка
     elif "визитка" in text:
@@ -175,6 +175,10 @@ if __name__ == "__main__":
     flask_thread = threading.Thread(target=run_flask)
     flask_thread.start()
     
+    # !!! ЛЕЧИМ ОШИБКУ 409 !!!
+    bot.remove_webhook()
+    
     # Запускаем бота
+    print("Бот запущен...")
     bot.infinity_polling()
     
