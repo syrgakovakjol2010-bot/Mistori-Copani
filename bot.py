@@ -13,7 +13,7 @@ TOKEN = "7345968875:AAHbwebgGGpv7l2d8vVFgXebVfaYe4RnwIo"
 ADMIN_ID = 5385396977
 
 # Имя картинки с прайсом (должна лежать рядом с bot.py)
-PRICE_IMAGE = "1000061515.jpg"
+PRICE_IMAGE = "IMG-20260130-WA0025.jpg"
 
 # Сюда вставишь ссылку, которую даст Render (когда сайт заработает)
 # Пока стоит заглушка Google
