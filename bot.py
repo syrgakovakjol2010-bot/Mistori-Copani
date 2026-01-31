@@ -7,7 +7,7 @@ import os
 # --- ТВОИ ДАННЫЕ ---
 TOKEN = "7345968875:AAHbwebgGGpv7l2d8vVFgXebVfaYe4RnwIo"
 ADMIN_ID = 5385396977  # <--- НЕ ЗАБУДЬ ПОСТАВИТЬ СВОЙ ID!
-PRICE_IMAGE = "0260130-WA0025.jpg"
+PRICE_IMAGE = "IMG-20260130-WA0025.jpg"
 
 # СЮДА ВСТАВЬ ССЫЛКУ, КОТОРУЮ ДАЛ GITHUB (из этапа 1)
 # Пример: "https://твой-ник.github.io/твое-название/"
